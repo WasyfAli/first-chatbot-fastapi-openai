@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Python specific
+*.log
+*.sqlite3
+
+# Dependency files
+pip-log.txt
+
+# FastAPI static files (optional if user-generated)
+static/__pycache__/
+
+# Uvicorn/Starlette logs
+*.pid
+*.db
+
+# Test cache
+.pytest_cache/
+coverage/
+
+# Deployment
+*.egg-info/
+dist/
+build/
+
+# If you're using VSCode
+.vscode/
+
+# Node/npm (if you have frontend too)
+node_modules/
+
+# Generated HTML/CSS/JS (if built manually)
+dist/
+public/

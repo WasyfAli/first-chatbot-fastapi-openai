@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with Hitesh.ai 🧠</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Simple typing loader */
+        #loader {
+            display: none;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #888;
+        }
+
+        .dots::after {
+            content: '';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with Hitesh.ai 🧠</h1>
+    <div id="chat-box"></div>
+
+    <div id="loader" class="dots">🧠 Hitesh.ai is typing</div>
+
+    <input type="text" id="user-input" placeholder="Say something..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById("user-input");
+            const chatBox = document.getElementById("chat-box");
+            const loader = document.getElementById("loader");
+
+            const userText = input.value.trim();
+            if (!userText) return;
+
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userText}</p>`;
+            input.value = "";
+
+            loader.style.display = "block"; // Show loader
+
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userText })
+            });
+
+            loader.style.display = "none"; // Hide loader
+
+            const data = await response.json();
+            chatBox.innerHTML += `<p><strong>Hitesh.ai:</strong> ${data.reply}</p>`;
+        }
+    </script>
+</body>
+</html>

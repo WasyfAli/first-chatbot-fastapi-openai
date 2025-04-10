@@ -1,0 +1,17 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 0.5rem;
+    background: #f0f0f0;
+}
+#chat-box {
+    background: white;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+input, button {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
