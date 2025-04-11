@@ -3,36 +3,27 @@
 <head>
     <title>Chat with Hitesh.ai 🧠</title>
     <link rel="stylesheet" href="/static/style.css">
-    <style>
-        /* Simple typing loader */
-        #loader {
-            display: none;
-            margin: 10px 0;
-            font-weight: bold;
-            color: #888;
-        }
-
-        .dots::after {
-            content: '';
-            animation: dots 1.5s steps(5, end) infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: ''; }
-            40% { content: '.'; }
-            60% { content: '..'; }
-            80%, 100% { content: '...'; }
-        }
-    </style>
+    <script>
+        window.onload = () => {
+            document.getElementById("loader").style.display = "none";
+        };
+    </script>
 </head>
 <body>
-    <h1>Chat with Hitesh.ai 🧠</h1>
-    <div id="chat-box"></div>
+    <div class="chat-container">
+        <header>
+            <h2>🧠 Chat with Hitesh.ai</h2>
+        </header>
 
-    <div id="loader" class="dots">🧠 Hitesh.ai is typing</div>
+        <div id="chat-box" class="chat-box"></div>
 
-    <input type="text" id="user-input" placeholder="Say something..." />
-    <button onclick="sendMessage()">Send</button>
+        <div id="loader" class="dots typing-loader">🧠 Hitesh.ai is typing</div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Say something..." autocomplete="off" />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
 
     <script>
         async function sendMessage() {
@@ -43,10 +34,10 @@
             const userText = input.value.trim();
             if (!userText) return;
 
-            chatBox.innerHTML += `<p><strong>You:</strong> ${userText}</p>`;
+            chatBox.innerHTML += `<div class="chat-bubble user"><span>You:</span> ${userText}</div>`;
             input.value = "";
 
-            loader.style.display = "block"; // Show loader
+            loader.style.display = "block";
 
             const response = await fetch("/chat", {
                 method: "POST",
@@ -54,10 +45,12 @@
                 body: JSON.stringify({ message: userText })
             });
 
-            loader.style.display = "none"; // Hide loader
+            loader.style.display = "none";
 
             const data = await response.json();
-            chatBox.innerHTML += `<p><strong>Hitesh.ai:</strong> ${data.reply}</p>`;
+            chatBox.innerHTML += `<div class="chat-bubble bot"><span>Hitesh.ai:</span> ${data.reply}</div>`;
+
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
 </body>
